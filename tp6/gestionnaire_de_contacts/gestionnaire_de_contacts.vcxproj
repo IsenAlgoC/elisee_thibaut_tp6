@@ -18,6 +18,16 @@
       <Platform>x64</Platform>
     </ProjectConfiguration>
   </ItemGroup>
+  <ItemGroup>
+    <ClCompile Include="liste.c" />
+    <ClCompile Include="outil.c" />
+    <ClCompile Include="rep.c" />
+  </ItemGroup>
+  <ItemGroup>
+    <ClInclude Include="liste.h" />
+    <ClInclude Include="personne.h" />
+    <ClInclude Include="rep.h" />
+  </ItemGroup>
   <PropertyGroup Label="Globals">
     <VCProjectVersion>16.0</VCProjectVersion>
     <Keyword>Win32Proj</Keyword>
