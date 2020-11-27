@@ -14,26 +14,4 @@
       <Extensions>rc;ico;cur;bmp;dlg;rc2;rct;bin;rgs;gif;jpg;jpeg;jpe;resx;tiff;tif;png;wav;mfcribbon-ms</Extensions>
     </Filter>
   </ItemGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\liste.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\personne.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\rep.h">
-      <Filter>Fichiers d%27en-tête</Filter>
-    </ClInclude>
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\liste.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\outil.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\rep.c">
-      <Filter>Fichiers sources</Filter>
-    </ClCompile>
-  </ItemGroup>
 </Project>

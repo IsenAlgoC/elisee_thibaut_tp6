@@ -138,16 +138,6 @@
       <GenerateDebugInformation>true</GenerateDebugInformation>
     </Link>
   </ItemDefinitionGroup>
-  <ItemGroup>
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\liste.h" />
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\personne.h" />
-    <ClInclude Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\rep.h" />
-  </ItemGroup>
-  <ItemGroup>
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\liste.c" />
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\outil.c" />
-    <ClCompile Include="..\..\..\..\..\..\Downloads\Squelette-v3.0\rep.c" />
-  </ItemGroup>
   <Import Project="$(VCTargetsPath)\Microsoft.Cpp.targets" />
   <ImportGroup Label="ExtensionTargets">
   </ImportGroup>
