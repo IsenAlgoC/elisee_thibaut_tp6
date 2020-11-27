@@ -10,7 +10,7 @@
 #define SQUELET
 /**************************************************************************/
 /* Compléter votre nom ici                                                */
-/*   Nom :                         Prénom :                               */
+/*   Nom :  THIBAUT                       Prénom :  ELisée                             */
 /**************************************************************************/
 
 extern bool modif;
@@ -24,12 +24,15 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 {
 #ifdef IMPL_TAB
 	// compléter code ici pour tableau
-	int idx;
-
+	int idx = rep->nb_elts;
 	if (rep->nb_elts < MAX_ENREG)
 	{
 
+		rep->tab[idx] = enr;//on place l'enregistrement dans le tableau d'enregistrements du repertoire
+		affichage_enreg(enr);
 
+		rep->nb_elts++;
+		modif = true;
 	}
 	else {
 		return(ERROR);
@@ -65,7 +68,6 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 
 
 	return(OK);
-
 } /* fin ajout */
   /**********************************************************************/
   /* supprime du répertoire l'enregistrement dont l'indice est donné en */
@@ -119,9 +121,10 @@ int supprimer_un_contact_dans_rep_liste(Repertoire* rep, SingleLinkedListElem* e
 void affichage_enreg(Enregistrement enr)
 {
 	// code à compléter ici
-
+	printf_s("\n\nVous venex d'enreger %s, %s                 %s\n", enr.nom, enr.prenom, enr.tel);
 
 } /* fin affichage_enreg */
+
   /**********************************************************************/
   /*  fonction d'affichage d'un enregistrement avec alignement des mots */
   /* pour les listes                                                    */
@@ -141,8 +144,14 @@ void affichage_enreg_frmt(Enregistrement enr)
   /* un autre                                                           */
   /**********************************************************************/
 bool est_sup(Enregistrement enr1, Enregistrement enr2)
-{
+{	//si enr1>enr2, on renvoie true
 	// code à compléter ici
+	/*on commence par créer une version en majuscule des noms à comparer*/
+	unsigned char majenr1 = toupper(enr1.nom);
+	unsigned char majenr2 = toupper(enr2.nom);
+	for (int i = 0; i < strlen(majenr1); i++) {
+		
+	}
 
 
 	return(false);
@@ -159,7 +168,9 @@ void trier(Repertoire* rep)
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
 
-
+	for (int i = 0; i < rep->nb_elts; i++) {//cette partie affiche
+		printf_s("\n\n %s, %s                 %s\n",rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
+	}
 
 
 #else
@@ -195,7 +206,6 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
-
 #else
 #ifdef IMPL_LIST
 	// ajouter code ici pour Liste

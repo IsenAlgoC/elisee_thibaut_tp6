@@ -114,7 +114,7 @@ void main(int argc, char* argv[])
 			sauvegarder(&repertoire, nom_fichier);
 		}
 	}
-	printf("\nBye !\n\n");
+	printf("\nSalut Bye !\n\n");
 
 
 	return;
