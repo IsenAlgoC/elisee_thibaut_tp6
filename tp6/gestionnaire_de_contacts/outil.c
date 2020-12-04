@@ -261,10 +261,17 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
   /*********************************************************************/
 void compact(char* s)
 {
-	// compléter code ici
+	if (s == NULL) {//si le mot est vide on ne s'embete pas
+		return;
+	}
 
-
-	return;
+	char* pDest = s;//on assigne à notre variable locale la valeur de l'argument
+	while (*s) {//on le fait tant qu'il y a des caractères
+		if (*s > 47 && *s < 59) //si on est compris entre le A et le Z
+			*pDest++ = *s; //on recopie le caractère
+		s++;//puis on passe au caractère suivant
+	}
+	*pDest = '\0';//on termine notre mot
 }
 
 /**********************************************************************/
@@ -336,7 +343,14 @@ int charger(Repertoire* rep, char nom_fichier[])
 				}
 #else
 #ifdef IMPL_LIST
-														// ajouter code implemention liste
+						
+														
+														
+														
+														
+														
+														
+	// ajouter code implemention liste
 #endif
 #endif
 
