@@ -10,7 +10,7 @@
 #define SQUELET
 /**************************************************************************/
 /* Compléter votre nom ici                                                */
-/*   Nom :  THIBAUT                       Prénom :  ELisée                             */
+/*   Nom :  THIBAUT                       Prénom :  ELisée                */
 /**************************************************************************/
 
 extern bool modif;
@@ -33,6 +33,7 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 
 		rep->nb_elts++;
 		modif = true;
+		rep->est_trie = false;
 	}
 	else {
 		return(ERROR);
@@ -121,7 +122,7 @@ int supprimer_un_contact_dans_rep_liste(Repertoire* rep, SingleLinkedListElem* e
 void affichage_enreg(Enregistrement enr)
 {
 	// code à compléter ici
-	printf_s("\n\nVous venex d'enreger %s, %s                 %s\n", enr.nom, enr.prenom, enr.tel);
+	printf_s("\n\nVous venex d'enregistrer %s, %s                 %s\n", enr.nom, enr.prenom, enr.tel);
 
 } /* fin affichage_enreg */
 
@@ -146,15 +147,17 @@ void affichage_enreg_frmt(Enregistrement enr)
 bool est_sup(Enregistrement enr1, Enregistrement enr2)
 {	//si enr1>enr2, on renvoie true
 	// code à compléter ici
-	/*on commence par créer une version en majuscule des noms à comparer*/
-	unsigned char majenr1 = toupper(enr1.nom);
-	unsigned char majenr2 = toupper(enr2.nom);
-	for (int i = 0; i < strlen(majenr1); i++) {
-		
+
+	if (strcmp(enr1.nom, enr2.nom) > 0) {
+		return true;
 	}
-
-
-	return(false);
+	else if (enr1.nom, enr2.nom == 0) {
+		if (strcmp(enr1.prenom, enr2.prenom) > 0) {
+			return true;
+		}
+	}
+	
+	return false;
 
 }
 
@@ -167,6 +170,20 @@ void trier(Repertoire* rep)
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
+	Enregistrement e1;
+	if (rep->est_trie == false) {
+		for (int j = 0; j < rep->nb_elts - 1; j++) {
+			for (int i = 0; i < rep->nb_elts - 1; i++) {//cette partie ordonne
+				if (est_sup(rep->tab[i], rep->tab[1 + i])) {
+					e1 = rep->tab[i];
+					rep->tab[i] = rep->tab[1 + i];
+					rep->tab[1 + i] = e1;
+				}
+
+			}
+		}
+	}
+	rep->est_trie = true;
 
 	for (int i = 0; i < rep->nb_elts; i++) {//cette partie affiche
 		printf_s("\n\n %s, %s                 %s\n",rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
