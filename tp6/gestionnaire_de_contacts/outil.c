@@ -122,7 +122,7 @@ int supprimer_un_contact_dans_rep_liste(Repertoire* rep, SingleLinkedListElem* e
 void affichage_enreg(Enregistrement enr)
 {
 	// code à compléter ici
-	printf_s("\n\nVous venex d'enregistrer %s, %s                 %s\n", enr.nom, enr.prenom, enr.tel);
+	printf_s("\n\nContact :  %s, %s                 %s\n", enr.nom, enr.prenom, enr.tel);
 
 } /* fin affichage_enreg */
 
@@ -148,11 +148,16 @@ bool est_sup(Enregistrement enr1, Enregistrement enr2)
 {	//si enr1>enr2, on renvoie true
 	// code à compléter ici
 
-	if (strcmp(enr1.nom, enr2.nom) > 0) {
+	/*char NOM1 = toupper(enr1.nom);
+	char PRENOM1 = toupper(enr1.prenom);
+	char NOM2 = toupper(enr2.nom);
+	char PRENOM2 = toupper(enr2.prenom);*/
+
+	if (_strcmpi(enr1.nom, enr2.nom) > 0) {//si le nom de enr1 est avant alphabétiquement le nom de enr2
 		return true;
 	}
-	else if (enr1.nom, enr2.nom == 0) {
-		if (strcmp(enr1.prenom, enr2.prenom) > 0) {
+	else if (_strcmpi(enr1.nom, enr2.nom) == 0) {//si les noms sont identiques, on compare les prénoms de la meme facon
+		if (_strcmpi(enr1.prenom, enr2.prenom) > 0) {
 			return true;
 		}
 	}
@@ -170,10 +175,11 @@ void trier(Repertoire* rep)
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
-	Enregistrement e1;
-	if (rep->est_trie == false) {
+	
+	if (rep->est_trie == false) {//on ne trie que si le rep n'est pas trié
+		Enregistrement e1;
 		for (int j = 0; j < rep->nb_elts - 1; j++) {
-			for (int i = 0; i < rep->nb_elts - 1; i++) {//cette partie ordonne
+			for (int i = 0; i < rep->nb_elts - 1; i++) {
 				if (est_sup(rep->tab[i], rep->tab[1 + i])) {
 					e1 = rep->tab[i];
 					rep->tab[i] = rep->tab[1 + i];
@@ -220,9 +226,26 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 							/* tableau, afin de les convertir en majuscules et les comparer */
 	bool trouve = false;
 
+	ind_fin = rep->nb_elts - 1; // indice de fin à ne pas dépasser
+	strncpy_s(tmp_nom, _countof(tmp_nom), nom, _TRUNCATE);
+	compact(tmp_nom); // nettoyage du numéro
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
+	while ((i <= ind_fin) && (!trouve))
+	{
+
+		strncpy_s(tmp_nom2, _countof(tmp_nom2), rep->tab[i].nom, _TRUNCATE);
+
+
+
+		compact(tmp_nom2);
+		if (strcmp(tmp_nom, tmp_nom2) == 0)
+			trouve = true;
+		else
+			i++;
+	}
+
 #else
 #ifdef IMPL_LIST
 	// ajouter code ici pour Liste
@@ -239,6 +262,7 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 void compact(char* s)
 {
 	// compléter code ici
+
 
 	return;
 }
