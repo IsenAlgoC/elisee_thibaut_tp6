@@ -24,7 +24,7 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 {
 #ifdef IMPL_TAB
 	// compléter code ici pour tableau
-	int idx = rep->nb_elts;
+	int idx = rep->nb_elts; 
 	if (rep->nb_elts < MAX_ENREG)
 	{
 
