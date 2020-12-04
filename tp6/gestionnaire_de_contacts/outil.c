@@ -267,7 +267,7 @@ void compact(char* s)
 
 	char* pDest = s;//on assigne à notre variable locale la valeur de l'argument
 	while (*s) {//on le fait tant qu'il y a des caractères
-		if (*s > 47 && *s < 59) //si on est compris entre le A et le Z
+		if (*s > 47 && *s < 59) //si on est compris entre le 0 et le 9 d'ascii
 			*pDest++ = *s; //on recopie le caractère
 		s++;//puis on passe au caractère suivant
 	}
@@ -284,6 +284,7 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	FILE* fic_rep;					/* le fichier */
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
+	fic_rep = fopen("C:\Users\elise\source\repos\IsenAlgoC\elisee_thibaut_tp6\tp6\gestionnaire_de_contacts","w");
 
 #else
 #ifdef IMPL_LIST
