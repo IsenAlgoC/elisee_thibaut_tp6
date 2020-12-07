@@ -1,8 +1,6 @@
 freecs;gon;789
-zoldick;killua;44
+hatake;kakashi;741235065
 thibaut;elisee;0665734918
 uchiha;itachi;7
-uchiha;sasuke;78
-hatake;kakashi;741235065
+uchiha;madara;
 uchiha;obiti;74
-uchiha;madara

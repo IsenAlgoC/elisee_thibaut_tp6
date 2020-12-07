@@ -228,7 +228,7 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 	ind_fin = rep->nb_elts - 1; // indice de fin à ne pas dépasser
 	strncpy_s(tmp_nom, _countof(tmp_nom), nom, _TRUNCATE);
-	compact(tmp_nom); // nettoyage du numéro
+	//compact(tmp_nom);
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
@@ -239,7 +239,7 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 
 
-		compact(tmp_nom2);
+		//compact(tmp_nom2);
 		if (strcmp(tmp_nom, tmp_nom2) == 0)
 			trouve = true;
 		else
@@ -266,8 +266,9 @@ void compact(char* s)
 	}
 
 	char* pDest = s;//on assigne à notre variable locale la valeur de l'argument
+
 	while (*s) {//on le fait tant qu'il y a des caractères
-		if (*s > 47 && *s < 59) //si on est compris entre le 0 et le 9 d'ascii
+		if (*s >= 48 && *s <= 57) //si on est compris entre le 0 et le 9 d'ascii
 			*pDest++ = *s; //on recopie le caractère
 		s++;//puis on passe au caractère suivant
 	}
