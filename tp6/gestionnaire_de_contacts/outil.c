@@ -284,8 +284,19 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	FILE* fic_rep;					/* le fichier */
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
-	fic_rep = fopen("C:\Users\elise\source\repos\IsenAlgoC\elisee_thibaut_tp6\tp6\gestionnaire_de_contacts","w");
-
+	errno_t err;
+	err = fopen_s(&fic_rep, "rep.txt", "w+");
+	if (err == 0 && fic_rep!=NULL)
+	{
+		for (int i = 0; i < rep->nb_elts; i++) {
+			fprintf(fic_rep, "%s;%s;%s\n", rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
+		}
+		int numclosed = _fcloseall();
+	}
+	else
+	{
+		printf("The file 'data2' was not opened\n");
+	}
 #else
 #ifdef IMPL_LIST
 	// ajouter code ici pour Liste
