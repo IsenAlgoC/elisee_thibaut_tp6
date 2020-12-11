@@ -80,7 +80,7 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 			NewElement = NewLinkedListElement(pers);
 
 			if (NewElement != NULL) {
-				NewElement->next = Liste->tail;//on fait pointer cet élement vers la queue
+				NewElement->next = Liste->head;//on fait pointer cet élement vers la queue
 				Liste->head = NewElement;//on modifie la tête de notre liste
 				Liste->size++;//on augmente la taille de la liste
 			}
@@ -116,8 +116,23 @@ int DeleteLinkedListElem(LinkedList* list, SingleLinkedListElem* item) {
 	if ((list->head == list->tail) && (list->size != 1)) return(0); // anomalie
 	if ((list->size == 0) || (item == NULL)) return(0); // pas d'élément dans la liste ou item invalide
 
-	
+	SingleLinkedListElem* tmp = list->head;//on définit le pointeur courant
+	SingleLinkedListElem* previous = NULL;//on définit le pointeur précédent
 
+	if (item == list->head && item == list->tail) {
+		list->head = NULL;
+		list->tail = NULL;
+		list->size = 0;
+		free(item);
+		return 1;
+	}
+
+	if (item = list->head) {
+		list->head = item->next;
+		list->size--;
+		free(item);
+		return 1;
+	}
 
 	return(0);  // pas trouvé
 }

@@ -53,13 +53,12 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 		}
 
 	}
-	else {
-		//
-		// compléter code ici pour Liste
-		//
-		//
-		//
-
+	else {//si il y a des éléments
+		for (int i = 0; i < rep->nb_elts; i++) {
+			if (est_sup(GetElementAt(rep->liste, i)->pers, enr) == false) {//si l'élement i de la liste n'est pas alphabétiquement avant celui qu'on ajoute
+				InsertElementAt(rep->liste, i, enr);//on l'insère au rang i
+			}
+		}
 	}
 
 
@@ -136,7 +135,7 @@ void affichage_enreg_frmt(Enregistrement enr)
 {
 	// code à compléter ici
 	// comme fonction affichage_enreg, mais avec présentation alignées des infos
-
+	printf_s("| %s %s| %s %s| %s\n",enr.nom,"  ",enr.prenom,"  ",enr.tel);
 
 } /* fin affichage_enreg */
 
@@ -192,9 +191,9 @@ void trier(Repertoire* rep)
 	}
 	rep->est_trie = true;
 
-	for (int i = 0; i < rep->nb_elts; i++) {//cette partie affiche
-		printf_s("\n\n %s, %s                 %s\n",rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
-	}
+	//for (int i = 0; i < rep->nb_elts; i++) {//cette partie affiche
+	//	printf_s("\n\n %s, %s                 %s\n",rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
+	//}
 
 
 #else

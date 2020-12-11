@@ -1,5 +1,6 @@
 freecs;gon;1
 hatake;kakashi;2
+Sarutobi;Hiruzen;85
 senju;hashirama;3
 senju;tobirama;4
 thibaut;elisee;5

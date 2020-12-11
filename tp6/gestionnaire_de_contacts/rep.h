@@ -8,7 +8,7 @@
 
 
 #define IMPL_TAB  // si défini, on compile pour une implémentation tableau du répertoire
-//#define IMPL_LIST // si défini, on compile pour un implémentation Liste Chaînée du répertoire
+#define IMPL_LIST // si défini, on compile pour un implémentation Liste Chaînée du répertoire
 
 #ifdef IMPL_LIST
 #undef IMPL_TAB
