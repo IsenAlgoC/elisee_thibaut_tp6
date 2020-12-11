@@ -24,16 +24,16 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 {
 #ifdef IMPL_TAB
 	// compléter code ici pour tableau
-	int idx = rep->nb_elts; 
+	int idx = rep->nb_elts; //on se situe dans le tableau
 	if (rep->nb_elts < MAX_ENREG)
 	{
 
 		rep->tab[idx] = enr;//on place l'enregistrement dans le tableau d'enregistrements du repertoire
-		affichage_enreg(enr);
+		affichage_enreg(enr);//on dit à l'utilisateur qu'il a ajouté qqn
 
 		rep->nb_elts++;
 		modif = true;
-		rep->est_trie = false;
+		rep->est_trie = false;//l'élement étant ajouté à la fin, le tableau n'est plus trié
 	}
 	else {
 		return(ERROR);
@@ -81,8 +81,9 @@ void supprimer_un_contact_dans_rep(Repertoire* rep, int indice) {
 	if (rep->nb_elts >= 1)		/* s'il y a au moins un element ds le tableau */
 	{						/* et que l'indice pointe a l'interieur */
 
-
-
+		for (int i = indice; i < rep->nb_elts; i++) {//on décale tous les éléments après d'un rang en avant
+			rep->tab[i] = rep->tab[i + 1];//ce qui va supprimer l'élement voulu, sans créer de blanc
+		}
 
 
 
@@ -177,8 +178,8 @@ void trier(Repertoire* rep)
 	// ajouter code ici pour tableau
 	
 	if (rep->est_trie == false) {//on ne trie que si le rep n'est pas trié
-		Enregistrement e1;
-		for (int j = 0; j < rep->nb_elts - 1; j++) {
+		Enregistrement e1;//c'est une variable qui permettra d'intervetir deux à deux des élements
+		for (int j = 0; j < rep->nb_elts - 1; j++) {//on utilise ici un tri à bulles
 			for (int i = 0; i < rep->nb_elts - 1; i++) {
 				if (est_sup(rep->tab[i], rep->tab[1 + i])) {
 					e1 = rep->tab[i];
@@ -228,7 +229,6 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 	ind_fin = rep->nb_elts - 1; // indice de fin à ne pas dépasser
 	strncpy_s(tmp_nom, _countof(tmp_nom), nom, _TRUNCATE);
-	//compact(tmp_nom);
 
 #ifdef IMPL_TAB
 	// ajouter code ici pour tableau
@@ -239,7 +239,6 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 
 
-		//compact(tmp_nom2);
 		if (strcmp(tmp_nom, tmp_nom2) == 0)
 			trouve = true;
 		else
@@ -287,12 +286,12 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	// ajouter code ici pour tableau
 	errno_t err;
 	err = fopen_s(&fic_rep, "rep.txt", "w+");
-	if (err == 0 && fic_rep!=NULL)
+	if (err == 0 && fic_rep!=NULL)//pour ouvrir le fichier .txt en sécurité, sans message d'erreur
 	{
-		for (int i = 0; i < rep->nb_elts; i++) {
+		for (int i = 0; i < rep->nb_elts; i++) {//on recopie les infos des gens au fur et à mesure
 			fprintf(fic_rep, "%s;%s;%s\n", rep->tab[i].nom, rep->tab[i].prenom, rep->tab[i].tel);
 		}
-		int numclosed = _fcloseall();
+		int numclosed = _fcloseall();//on ferme le document texte
 	}
 	else
 	{

@@ -4,8 +4,8 @@
 #include <locale.h>
 #include "liste.h"
 
-// #define VERSION 3.0
-// #define SQUELET
+#define VERSION 3.0
+#define SQUELET
 
 
 // crée une nouvelle liste chainée unilataire vide et renvoie un pointeur sur cette liste
@@ -48,7 +48,6 @@ SingleLinkedListElem* GetElementAt(LinkedList* Liste, int i) {
 // Cette fonction fait appel à la fonction NewLinkedListElement(Enregistrement pers) pour créer un maillon
 //
 // FONCTION A COMPLETER AUX ENDROITS INDIQUES
-
 int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 	SingleLinkedListElem* CurrentElement, * NewElement;
 	if (Liste == NULL) return(0);
@@ -75,16 +74,15 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 		Liste->size++;
 		return(1);
 	}
-	else {
+	else {//if CurrentElement == NULL
 		if (Liste->size == 0) { // insertion en tête de l'unique élément
+
 			NewElement = NewLinkedListElement(pers);
+
 			if (NewElement != NULL) {
-				//
-				//
-				//   insertion code ici
-				//
-				//
-				//
+				NewElement->next = Liste->tail;//on fait pointer cet élement vers la queue
+				Liste->head = NewElement;//on modifie la tête de notre liste
+				Liste->size++;//on augmente la taille de la liste
 			}
 			else {
 				return(0);
@@ -93,12 +91,9 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 		if (Liste->size <= i) { // insertion en queue
 			NewElement = NewLinkedListElement(pers);
 			if (NewElement != NULL) {
-				//
-				//
-				//   insertion code ici
-				//
-				//
-				//
+				Liste->tail->next = NewElement;//la queue pointe maintenant vers le nouvel élement
+				Liste->tail = NewElement;//on change la queue dans la déclaration de la liste
+				Liste->size++;//on augmente la taille de la liste
 			}
 			else {
 				return(0);
@@ -108,6 +103,9 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 	}
 	return(0);
 }
+
+
+
 //
 // Suppression d'un élément de la liste chaînée
 //
@@ -118,11 +116,7 @@ int DeleteLinkedListElem(LinkedList* list, SingleLinkedListElem* item) {
 	if ((list->head == list->tail) && (list->size != 1)) return(0); // anomalie
 	if ((list->size == 0) || (item == NULL)) return(0); // pas d'élément dans la liste ou item invalide
 
-	//
-	//
-	// compléter code ici
-	//
-	//
+	
 
 
 	return(0);  // pas trouvé
