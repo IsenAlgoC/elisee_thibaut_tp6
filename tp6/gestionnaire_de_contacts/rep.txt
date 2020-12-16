@@ -1,9 +1,4 @@
-freecs;gon;1
-hatake;kakashi;2
-Sarutobi;Hiruzen;85
-senju;hashirama;3
-senju;tobirama;4
-thibaut;elisee;5
-uchiha;itachi;6
-uchiha;madara;7
-zoldick;killua;8
+polnaref;michel;1
+hugo;victor;45
+uzumaki;naruto;14766
+staline;joseph;4

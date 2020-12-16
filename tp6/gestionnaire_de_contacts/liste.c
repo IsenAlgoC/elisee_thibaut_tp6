@@ -80,9 +80,9 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 			NewElement = NewLinkedListElement(pers);
 
 			if (NewElement != NULL) {
-				NewElement->next = Liste->head;//on fait pointer cet élement vers la queue
-				Liste->head = NewElement;//on modifie la tête de notre liste
-				Liste->size++;//on augmente la taille de la liste
+				Liste->head = NewElement;
+				Liste->tail = NewElement;
+				Liste->size++;
 			}
 			else {
 				return(0);
@@ -99,7 +99,7 @@ int InsertElementAt(LinkedList* Liste, int i, Enregistrement pers) {
 				return(0);
 			}
 		}
-
+		return(1);
 	}
 	return(0);
 }

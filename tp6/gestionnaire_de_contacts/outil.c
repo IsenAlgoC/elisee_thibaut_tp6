@@ -29,7 +29,6 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 	{
 
 		rep->tab[idx] = enr;//on place l'enregistrement dans le tableau d'enregistrements du repertoire
-		affichage_enreg(enr);//on dit à l'utilisateur qu'il a ajouté qqn
 
 		rep->nb_elts++;
 		modif = true;
@@ -54,10 +53,32 @@ int ajouter_un_contact_dans_rep(Repertoire* rep, Enregistrement enr)
 
 	}
 	else {//si il y a des éléments
-		for (int i = 0; i < rep->nb_elts; i++) {
-			if (est_sup(GetElementAt(rep->liste, i)->pers, enr) == false) {//si l'élement i de la liste n'est pas alphabétiquement avant celui qu'on ajoute
-				InsertElementAt(rep->liste, i, enr);//on l'insère au rang i
+		int idx = 0;//on retravaille ici avec un indice de position
+		//on va placer en ordre alphabétique, car il n'y a pas de fonction de tri à écrire pour la liste
+		SingleLinkedListElem* currentElement = GetElementAt(rep->liste, idx);
+		if (rep->nb_elts < MAX_ENREG) {
+			if (est_sup(enr, rep->liste->tail->pers) == true) {//on compare tout de suite à la queue, car des erreurs se produisaient parfois si on commençait par le corps
+				if (InsertElementAt(rep->liste, rep->liste->size, enr) != 0) {//si l'enregistrement a réussi
+					rep->nb_elts++;
+					modif = true;
+					rep->est_trie = true;
+				}
 			}
+			else {//on va tester tous les éléments jusqu'à trouver celui qui est après alphabétiquement
+				while (est_sup(enr, currentElement->pers)) {
+					idx++;
+					currentElement = GetElementAt(rep->liste, idx);
+				}
+				if (InsertElementAt(rep->liste, idx, enr) != 00) {
+					rep->nb_elts++;
+					rep->est_trie = true;
+					modif = true;
+				}
+
+			}
+
+
+
 		}
 	}
 
@@ -135,8 +156,8 @@ void affichage_enreg_frmt(Enregistrement enr)
 {
 	// code à compléter ici
 	// comme fonction affichage_enreg, mais avec présentation alignées des infos
-	printf_s("| %s %s| %s %s| %s\n",enr.nom,"  ",enr.prenom,"  ",enr.tel);
-
+	printf("%-30s|%-30s|%-20s\n", enr.nom,enr.prenom,enr.tel);
+	
 } /* fin affichage_enreg */
 
 
@@ -246,7 +267,24 @@ int rechercher_nom(Repertoire* rep, char nom[], int ind)
 
 #else
 #ifdef IMPL_LIST
-	// ajouter code ici pour Liste
+	SingleLinkedListElem* currentElement = GetElementAt(rep->liste, i);
+	while (i <= ind_fin && !trouve) {
+
+
+		strncpy_s(tmp_nom2, _countof(tmp_nom2), currentElement->pers.nom, _TRUNCATE);
+
+
+		if (strcmp(tmp_nom, tmp_nom2) == 0) {
+			trouve = true;
+		}
+		else {
+			currentElement = currentElement->next;
+			i++;
+		}
+	
+	
+	
+	}
 
 #endif
 #endif
@@ -295,9 +333,28 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	else
 	{
 		printf("The file 'data2' was not opened\n");
+		return ERROR;
 	}
 #else
 #ifdef IMPL_LIST
+	errno_t err;
+	err = fopen_s(&fic_rep, "rep.txt", "w+");
+	if (err == 0 && fic_rep != NULL)//pour ouvrir le fichier .txt en sécurité, sans message d'erreur
+	{
+		SingleLinkedListElem* currentElement = rep->liste->head;
+		fprintf(fic_rep, "%s;%s;%s\n", currentElement->pers.nom, currentElement->pers.prenom, currentElement->pers.tel);
+
+		for (int i = 0; i < rep->nb_elts; i++) {//on recopie les infos des gens au fur et à mesure
+			fprintf(fic_rep, "%s;%s;%s\n", currentElement->pers.nom, currentElement->pers.prenom, currentElement->pers.tel);
+			currentElement = currentElement->next;
+		}
+		int numclosed = _fcloseall();//on ferme le document texte
+	}
+	else
+	{
+		printf("The file 'data2' was not opened\n");
+		return ERROR;
+	}
 	// ajouter code ici pour Liste
 #endif
 #endif
@@ -354,13 +411,20 @@ int charger(Repertoire* rep, char nom_fichier[])
 				}
 #else
 #ifdef IMPL_LIST
-						
-														
-														
-														
-														
-														
-														
+				SingleLinkedListElem currentElment;
+				if (lire_champ_suivant(buffer, &idx, currentElment.pers.nom, MAX_NOM, SEPARATEUR) == OK)
+				{
+					idx++;							/* on saute le separateur */
+					if (lire_champ_suivant(buffer, &idx, currentElment.pers.prenom, MAX_NOM, SEPARATEUR) == OK)
+					{
+						idx++;
+						if (lire_champ_suivant(buffer, &idx, currentElment.pers.tel, MAX_TEL, SEPARATEUR) == OK) {
+							InsertElementAt(rep->liste, num_rec, currentElment.pers);
+							num_rec++;		/* element à priori correct, on le comptabilise */
+						}
+					}
+				}
+																								
 	// ajouter code implemention liste
 #endif
 #endif
