@@ -341,8 +341,7 @@ int sauvegarder(Repertoire* rep, char nom_fichier[])
 	err = fopen_s(&fic_rep, "rep.txt", "w+");
 	if (err == 0 && fic_rep != NULL)//pour ouvrir le fichier .txt en sécurité, sans message d'erreur
 	{
-		SingleLinkedListElem* currentElement = rep->liste->head;
-		fprintf(fic_rep, "%s;%s;%s\n", currentElement->pers.nom, currentElement->pers.prenom, currentElement->pers.tel);
+		SingleLinkedListElem* currentElement = rep->liste->head;//encore une fois, on commence à la tête
 
 		for (int i = 0; i < rep->nb_elts; i++) {//on recopie les infos des gens au fur et à mesure
 			fprintf(fic_rep, "%s;%s;%s\n", currentElement->pers.nom, currentElement->pers.prenom, currentElement->pers.tel);
